@@ -8,8 +8,8 @@
          boolean goesForward=false;
            int speedSet = 0;
 
-            int x = A0;
-             int y = A1;
+            int X = A0;
+             int Y = A1;
               int button =2;
                const int trig = 3;
                 const int echo = 4;
@@ -17,12 +17,16 @@
 
 
 void setup() {
-pinMode(x, INPUT);
-  pinMode(y,INPUT);
+pinMode(X, INPUT);
+  pinMode(Y,INPUT);
    pinMode(button, INPUT);
     pinMode(trig, OUTPUT);
      pinMode(echo, INPUT);
       pinMode(led, OUTPUT);
+      motor1.setSpeed(230);
+           motor2.setSpeed(230);
+            motor3.setSpeed(230);
+             motor4.setSpeed(230);
         Serial.begin(9600);
 
 }
@@ -31,8 +35,8 @@ void loop() {
 unsigned long duration;
    int button = digitalRead(button);
     int distance = (duration/2/29.412);
-     int x = analogRead(x);
-      int y = analogRead(y);
+     int x = analogRead(X);
+      int y = analogRead(Y);
 
 
         duration = pulseIn(echo,HIGH);
@@ -56,102 +60,57 @@ unsigned long duration;
              digitalWrite(led,LOW);
               }
 
-                if (y > 1) {
-                 moveForward ();
+                if (1022 <= X <= 1023) {
+       motor1.run(FORWARD);      
+        motor2.run(FORWARD);
+         motor3.run(FORWARD); 
+          motor4.run(FORWARD);   
                   }
                    else {
-                    moveStop ();
-                     }
-
-                       if (y < -1) {
-                        moveBackward ();
-                         }
-                          else {
-                           moveStop ();
-                            }
-
-                              if (x > 1) {
-                               turnRight ();
-                                }
-                                 else {
-                                  moveStop ();
-                                   }
-
-                                     if (x < -1) {
-                                      turnLeft ();
-                                       }
-                                        else {
-                                         moveStop ();
-                                          }
-                                           
-}
-  void moveStop() {
 
    motor1.run(RELEASE); 
     motor2.run(RELEASE);
      motor3.run(RELEASE);
       motor4.run(RELEASE);
-       } 
-  
-  void moveForward() {
+                     }
 
-    if(!goesForward)
-     {
-      goesForward=true;
-       motor1.run(FORWARD);      
+                       if (X = 0) {
+       motor1.run(BACKWARD);      
+        motor2.run(BACKWARD);
+         motor3.run(BACKWARD); 
+          motor4.run(BACKWARD);    
+                         }
+                          else {
+   motor1.run(RELEASE); 
+    motor2.run(RELEASE);
+     motor3.run(RELEASE);
+      motor4.run(RELEASE);
+                            }
+
+                              if (1022 <= Y <= 1023) {
+       motor1.run(BACKWARD);      
         motor2.run(FORWARD);
          motor3.run(FORWARD); 
-          motor4.run(FORWARD);     
-           for (speedSet = 0; speedSet < MAX_SPEED; speedSet +=2) 
-            {
-             motor1.setSpeed(speedSet);
-              motor2.setSpeed(speedSet);
-               motor3.setSpeed(speedSet);
-                motor4.setSpeed(speedSet);
-                 delay(5);
-                  }
-                   }
-                    }
+          motor4.run(BACKWARD);
+                                }
+                                 else {
+                                   }
+   motor1.run(RELEASE); 
+    motor2.run(RELEASE);
+     motor3.run(RELEASE);
+      motor4.run(RELEASE);
+                                     if (Y = 0) {
+       motor1.run(FORWARD);      
+        motor2.run(BACKWARD);
+         motor3.run(BACKWARD); 
+          motor4.run(FORWARD);         
+                                       }
+                                        else {
+   motor1.run(RELEASE); 
+    motor2.run(RELEASE);
+     motor3.run(RELEASE);
+      motor4.run(RELEASE);            
+                                          }
+                                           
+}
  
-  void moveBackward() {
-
-   goesForward=false;
-    motor1.run(BACKWARD);      
-     motor2.run(BACKWARD);
-      motor3.run(BACKWARD);
-       motor4.run(BACKWARD);  
-        for (speedSet = 0; speedSet < MAX_SPEED; speedSet +=2)
-         {
-          motor1.setSpeed(speedSet);
-           motor2.setSpeed(speedSet);
-            motor3.setSpeed(speedSet);
-             motor4.setSpeed(speedSet);
-              delay(5);
-               }
-                }  
-
-  void turnRight() {
-
-   motor1.run(FORWARD);
-    motor2.run(FORWARD);
-     motor3.run(BACKWARD);
-      motor4.run(BACKWARD);     
-       delay(300);
-        motor1.run(FORWARD);      
-         motor2.run(FORWARD);
-          motor3.run(FORWARD);
-           motor4.run(FORWARD);      
-            } 
- 
-  void turnLeft() {
-
-motor1.run(BACKWARD);    
-motor2.run(BACKWARD);  
-motor3.run(FORWARD);
-motor4.run(FORWARD);   
-delay(300);
-motor1.run(FORWARD);     
-motor2.run(FORWARD);
-motor3.run(FORWARD);
-motor4.run(FORWARD);
-}  
