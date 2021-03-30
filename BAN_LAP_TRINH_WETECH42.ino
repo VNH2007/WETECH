@@ -9,10 +9,17 @@
            int speedSet = 0;
             int X = A0;
              int Y = A2;
+        int x = analogRead(X);
+      int y = analogRead(Y);
+
+         int button = digitalRead(button);
               int button =2;
                const int trig = 3;
                 const int echo = 4;
                  int led = 5;
+const int D = 16;
+const int y0 = 484;
+const int x0 = 510;
 
 
 void setup() {
@@ -22,80 +29,50 @@ pinMode(A0, INPUT);
     pinMode(trig, OUTPUT);
      pinMode(echo, INPUT);
       pinMode(led, OUTPUT);
-      motor1.setSpeed(230);
-           motor2.setSpeed(230);
-            motor3.setSpeed(230);
-             motor4.setSpeed(230);
+      motor1.setSpeed(0);
+           motor2.setSpeed(0);
+            motor3.setSpeed(0);
+             motor4.setSpeed(0);
         Serial.begin(9600);
 
-         int button = digitalRead(button);
 
 
 }
 
 void loop() {
-        int x = analogRead(X);
-      int y = analogRead(Y);
-
-     
-
- void lmao () ;
+int x;
+ int y;
+ int button;
+ lmao () ;
        
  
-                if (x >1021) {
-       motor1.run(FORWARD),
-        motor2.run(FORWARD),
-         motor3.run(FORWARD), 
-          motor4.run(FORWARD);   
+                if (y > y0 + D) {
+  tien () ;   
 
                   }
                    else {
-
-   motor1.run(RELEASE),
-    motor2.run(RELEASE),
-     motor3.run(RELEASE),
-      motor4.run(RELEASE);
+  dung () ;
                      }
 
-                       if (X = 0) {
-       motor1.run(BACKWARD),     
-        motor2.run(BACKWARD),
-         motor3.run(BACKWARD),
-          motor4.run(BACKWARD);    
-          delay(1000);
+                       if (y < y0 - D) {
+  lui () ;
                          }
                           else {
-   motor1.run(RELEASE),
-    motor2.run(RELEASE),
-     motor3.run(RELEASE),
-      motor4.run(RELEASE);
+  dung () ;
                             }
 
-                              if (y >1021) {
-       motor1.run(BACKWARD),      
-        motor2.run(FORWARD),
-         motor3.run(FORWARD), 
-          motor4.run(BACKWARD);
-          delay(1000);
+                              if (x > x0 + D) {
+  phai () ;
                                 }
                                  else {
-                                   }
-   motor1.run(RELEASE),
-    motor2.run(RELEASE),
-     motor3.run(RELEASE),
-      motor4.run(RELEASE);
-                                     if (Y = 0) {
-       motor1.run(FORWARD),      
-        motor2.run(BACKWARD),
-         motor3.run(BACKWARD), 
-          motor4.run(FORWARD);     
-          delay(1000);    
+  dung () ;                              
+                                 }
+
+                                     if (x < x0 - D) {
+  trai () ;
                                        }
                                         else {
-   motor1.run(RELEASE),
-    motor2.run(RELEASE),
-     motor3.run(RELEASE),
-      motor4.run(RELEASE);            
+  dung () ;          
                                           }
                                            
 }
@@ -129,6 +106,50 @@ void lmao () {
   else {
     digitalWrite(led,LOW);
   }
-
-    
+void tien () {
+  motor1.setSpeed(y : 4);
+  motor2.setSpeed(y : 4);
+  motor3.setSpeed(y : 4);
+  motor4.setSpeed(y : 4);
+  motor1.run(FORWARD);
+  motor2.run(FORWARD);
+  motor3.run(FORWARD); 
+  motor4.run(FORWARD);  
 }
+ 
+ void lui () {
+  motor1.setSpeed(y : 4);
+  motor2.setSpeed(y : 4);
+  motor3.setSpeed(y : 4);
+  motor4.setSpeed(y : 4);
+  motor1.run(BACKWARD);      
+  motor2.run(BACKWARD);
+  motor3.run(BACKWARD);
+  motor4.run(BACKWARD);     
+ }
+ void trai () {
+  motor1.setSpeed(x : 4);
+  motor2.setSpeed(x : 4);
+  motor3.setSpeed(x : 4);
+  motor4.setSpeed(x : 4);
+  motor1.run(RELEASE);
+  motor2.run(FORWARD);
+  motor3.run(FORWARD); 
+  motor4.run(RELEASE);  
+ }
+  void phai () {
+  motor1.setSpeed(x : 4);
+  motor2.setSpeed(x : 4);
+  motor3.setSpeed(x : 4);
+  motor4.setSpeed(x : 4);
+  motor2.run(RELEASE);
+  motor1.run(FORWARD);
+  motor4.run(FORWARD); 
+  motor3.run(RELEASE);  
+ }
+ 
+ void dung () {
+  motor1.run(RELEASE);
+  motor2.run(RELEASE);
+  motor3.run(RELEASE); 
+  motor4.run(RELEASE);
